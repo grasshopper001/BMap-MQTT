@@ -1,0 +1,55 @@
+
+<!--TDwEqGHW8tooUDxV4IXA6P7x0aVApRcZ-->
+<!--GSCaLA4Aw2YgRrgltk01bckB0tmQdCxj-->
+
+<!DOCTYPE html>  
+<html>
+<head>  
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />  
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+<title>Hello, World</title>  
+<style type="text/css">  
+html{height:100%}  
+body{height:100%;margin:0px;padding:0px}  
+#container{height:100%}  
+</style>  
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=GSCaLA4Aw2YgRrgltk01bckB0tmQdCxj">
+//v2.0版本的引用方式：src="http://api.map.baidu.com/api?v=2.0&ak=浏览器端ak"
+</script>
+</head>  
+ 
+<body>  
+<div id="container"></div> 
+<script type="text/javascript"> 
+var map = new BMap.Map("container");
+// 创建地图实例  
+//var point = new BMap.Point(116.404, 39.915);
+// 创建点坐标  
+//map.centerAndZoom(point, 15);
+// 初始化地图，设置中心点坐标和地图级别  
+// 创建地址解析器实例
+var self=this;
+//var org=new BMap.Point;
+//var dst=new BMap.Point;
+var myGeo = new BMap.Geocoder();
+	// 将地址解析结果显示在地图上,并调整地图视野
+	//31.251053，121.391568
+	
+	var center=new BMap.Point(121.391568,31.29);
+	map.centerAndZoom(center, 12);
+	myGeo.getPoint("上海市兴顺路555号", function(point){
+		if (point) {
+			//数字越小，地图显示范围越大
+			//map.centerAndZoom(point, 12);
+			map.addOverlay(new BMap.Marker(point));
+			//self.org=point;
+		}else{
+			alert("您选择地址没有解析到结果!");
+		}
+	}, "上海市");
+//try traffic layer
+var trafficLayer=new BMap.TrafficLayer();
+map.addTileLayer(trafficLayer);
+</script>  
+</body>  
+</html>
